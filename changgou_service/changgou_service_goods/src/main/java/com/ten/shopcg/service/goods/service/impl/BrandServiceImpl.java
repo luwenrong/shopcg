@@ -1,6 +1,8 @@
 package com.ten.shopcg.service.goods.service.impl;
 
 import com.changgou.goods.pojo.Brand;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ten.shopcg.common.pojo.Result;
 import com.ten.shopcg.service.goods.dao.BrandMapper;
 import com.ten.shopcg.service.goods.service.BrandService;
@@ -79,6 +81,32 @@ public class BrandServiceImpl implements BrandService {
             }
         }
         return brandMapper.selectByExample(example);
+    }
+
+    @Override
+    public Page<Brand> findPage(Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        Page<Brand> page1 = (Page<Brand>) brandMapper.selectAll();
+        return page1;
+    }
+
+
+    @Override
+    public Page<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        Example example = new Example(Brand.class);
+        Example.Criteria criteria = example.createCriteria();
+        if (searchMap != null) {
+            //品牌名称模糊 like
+            if (searchMap.get("name") != null && !"".equals(searchMap.get("name"))) {
+                criteria.andLike("name", "%" + searchMap.get("name") + "%");
+            }
+            if(searchMap.get("letter") != null && !"".equals(searchMap.get("letter"))){
+                criteria.andEqualTo("letter",searchMap.get("letter"));
+            }
+        }
+        Page<Brand> pageInfo = (Page<Brand>) brandMapper.selectByExample(example);
+        return pageInfo;
     }
 
 
