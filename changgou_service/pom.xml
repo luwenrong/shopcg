@@ -13,6 +13,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>changgou_service_goods</module>
+        <module>changgou_service_order</module>
+        <module>changgou_service_config</module>
+        <module>changgou_service_business</module>
+        <module>changgou_service_user</module>
+        <module>changgou_service_system</module>
+        <module>changgou_service_file</module>
     </modules>
 
 
