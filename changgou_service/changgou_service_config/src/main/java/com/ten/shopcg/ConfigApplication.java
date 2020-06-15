@@ -7,7 +7,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan(basePackages = {"com.changgou.config.dao"})
+@MapperScan(basePackages = {"com.ten.shopcg.config.dao"})
 public class ConfigApplication {
     public static void main(String[] args) {
         SpringApplication.run( ConfigApplication.class);
