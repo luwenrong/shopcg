@@ -1,15 +1,14 @@
 package com.ten.shopcg.system.controller;
 
+import com.ten.shopcg.common.util.JwtUtil;
 import com.ten.shopcg.entity.PageResult;
 import com.ten.shopcg.entity.Result;
 import com.ten.shopcg.entity.StatusCode;
 import com.ten.shopcg.system.service.AdminService;
 import com.ten.shopcg.system.pojo.Admin;
 import com.github.pagehelper.Page;
-import com.ten.shopcg.system.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

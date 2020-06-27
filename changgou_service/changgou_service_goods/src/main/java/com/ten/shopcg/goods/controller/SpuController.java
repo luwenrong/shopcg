@@ -2,6 +2,7 @@ package com.ten.shopcg.goods.controller;
 import com.ten.shopcg.entity.PageResult;
 import com.ten.shopcg.entity.Result;
 import com.ten.shopcg.entity.StatusCode;
+import com.ten.shopcg.goods.pojo.Goods;
 import com.ten.shopcg.goods.service.SpuService;
 import com.ten.shopcg.goods.pojo.Spu;
 import com.github.pagehelper.Page;
@@ -35,19 +36,19 @@ public class SpuController {
      */
     @GetMapping("/{id}")
     public Result findById(@PathVariable String id){
-        Spu spu = spuService.findById(id);
-        return new Result(true,StatusCode.OK,"查询成功",spu);
+        Goods goods = spuService.findGoodsById(id);
+        return new Result(true,StatusCode.OK,"查询成功",goods);
     }
 
 
     /***
      * 新增数据
-     * @param spu
+     * @param goods
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Spu spu){
-        spuService.add(spu);
+    public Result add(@RequestBody Goods goods){
+        spuService.add(goods);
         return new Result(true,StatusCode.OK,"添加成功");
     }
 

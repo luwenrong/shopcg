@@ -1,5 +1,6 @@
 package com.ten.shopcg.goods.service;
 
+import com.ten.shopcg.goods.pojo.Goods;
 import com.ten.shopcg.goods.pojo.Spu;
 import com.github.pagehelper.Page;
 
@@ -23,9 +24,9 @@ public interface SpuService {
 
     /***
      * 新增
-     * @param spu
+     * @param goods
      */
-    void add(Spu spu);
+    void add(Goods goods);
 
     /***
      * 修改
@@ -64,6 +65,6 @@ public interface SpuService {
     Page<Spu> findPage(Map<String, Object> searchMap, int page, int size);
 
 
-
+    Goods findGoodsById(String id);
 
 }
