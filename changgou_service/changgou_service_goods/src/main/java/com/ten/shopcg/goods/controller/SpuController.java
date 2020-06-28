@@ -55,14 +55,14 @@ public class SpuController {
 
     /***
      * 修改数据
-     * @param spu
+     * @param goods
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    public Result update(@RequestBody Spu spu,@PathVariable String id){
-        spu.setId(id);
-        spuService.update(spu);
+    public Result update(@RequestBody Goods goods,@PathVariable String id){
+        spuService.update(goods);
+
         return new Result(true,StatusCode.OK,"修改成功");
     }
 
@@ -104,5 +104,36 @@ public class SpuController {
         return new Result(true,StatusCode.OK,"查询成功",pageResult);
     }
 
+    /**
+     * 商品审核并自动上架
+     * @param id
+     * @return
+     */
+    @PutMapping("/audit/{id}")
+    public Result audit(@PathVariable("id") String id){
+        spuService.audit(id);
+        return new Result(true,StatusCode.OK,"商品审核成功");
+    }
 
+    /**
+     * 商品下架
+     * @param id
+     * @return
+     */
+    @PutMapping("/pull/{id}")
+    public Result pull(@PathVariable("id") String id){
+        spuService.pull(id);
+        return new Result(true,StatusCode.OK,"商品下架成功");
+    }
+
+    /**
+     * 商品上架
+     * @param id
+     * @return
+     */
+    @PutMapping("/put/{id}")
+    public Result put(@PathVariable("id") String id){
+        spuService.put(id);
+        return new Result(true,StatusCode.OK,"商品上架成功");
+    }
 }

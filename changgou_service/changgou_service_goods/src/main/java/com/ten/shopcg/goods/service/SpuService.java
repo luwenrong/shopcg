@@ -30,9 +30,9 @@ public interface SpuService {
 
     /***
      * 修改
-     * @param spu
+     * @param goods
      */
-    void update(Spu spu);
+    void update(Goods goods);
 
     /***
      * 删除
@@ -67,4 +67,12 @@ public interface SpuService {
 
     Goods findGoodsById(String id);
 
+    //商品审核并自动上架
+    void audit(String id);
+
+    //商品下架
+    void pull(String id);
+
+    //商品上架
+    void put(String id);
 }

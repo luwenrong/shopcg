@@ -135,11 +135,22 @@ public class SpuServiceImpl implements SpuService {
 
     /**
      * 修改
-     * @param spu
+     * @param goods
      */
     @Override
-    public void update(Spu spu){
+    public void update(Goods goods){
+        //修改spu
+        Spu spu = goods.getSpu();
         spuMapper.updateByPrimaryKey(spu);
+        //修改sku
+
+        //删除原有的sku列表
+        Example example = new Example(Sku.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("spuId",spu.getId());
+        skuMapper.deleteByExample(example);
+        //现有的sku列表重新添加
+        this.saveSkuList(goods);
     }
 
     /**
@@ -209,6 +220,60 @@ public class SpuServiceImpl implements SpuService {
         goods.setSkuList(skuList);
 
         return goods;
+    }
+
+    @Override
+    public void audit(String id) {
+        //查询spu对象
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        if(null == spu){
+            throw new RuntimeException("当前商品不存在");
+        }
+        //判断当前spu是否处于删除状态
+        if("1".equals(spu.getIsDelete())){
+            throw new RuntimeException("当前商品处于删除状态");
+        }
+        spu.setStatus("1");
+        spu.setIsMarketable("1");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
+
+    }
+
+    //商品下架
+    @Transactional
+    @Override
+    public void pull(String id) {
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        if(null == spu){
+            throw new RuntimeException("当前商品不存在");
+        }
+
+        if("1".equals(spu.getIsDelete())){
+            throw new RuntimeException("当前商品处于删除状态");
+        }
+
+        spu.setIsMarketable("0");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+    //商品上架
+    @Transactional
+    @Override
+    public void put(String id) {
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        if(null == spu){
+            throw new RuntimeException("当前商品不存在");
+        }
+
+        if("1".equals(spu.getIsDelete())){
+            throw new RuntimeException("当前商品处于删除状态");
+        }
+
+        spu.setIsMarketable("1");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
     }
 
     /**
