@@ -136,4 +136,16 @@ public class SpuController {
         spuService.put(id);
         return new Result(true,StatusCode.OK,"商品上架成功");
     }
+
+    @PutMapping("/restore/{id}")
+    public Result restore(@PathVariable("id") String id){
+        spuService.restore(id);
+        return new Result(true,StatusCode.OK,"商品还原成功");
+    }
+
+    @DeleteMapping("/realDel/{id}")
+    public Result realDel(@PathVariable("id") String id){
+        spuService.realDelete(id);
+        return new Result(true,StatusCode.OK,"删除成功");
+    }
 }
