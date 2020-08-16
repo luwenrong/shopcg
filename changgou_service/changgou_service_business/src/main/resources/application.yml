@@ -10,6 +10,8 @@ spring:
     password: root
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  rabbitmq:
+    host: 192.168.200.128
 eureka:
   client:
     service-url:
